@@ -9,11 +9,16 @@ public class IntroductionExample {
         target.setName("name");
         IntroductionAdvisor introductionAdvisor = new IsModifiedAdvisor();
         ProxyFactory proxyFactory = new ProxyFactory();
+        proxyFactory.setOptimize(true);
         proxyFactory.setTarget(target);
         proxyFactory.addAdvisor(introductionAdvisor);
-        proxyFactory.setOptimize(true);
-        TargetBean targetBean = (TargetBean) proxyFactory.getProxy();
-        IsModified isModified= (IsModified) target;
+        TargetBean proxy = (TargetBean) proxyFactory.getProxy();
+        IsModified isModified= (IsModified) proxy;
+        System.out.println(isModified.isModified());
+        proxy.setName("大海");
+        System.out.println(isModified.isModified());
+        proxy.setName("大王");
+        System.out.println(isModified.isModified());
 
     }
 }
